@@ -18,7 +18,6 @@
       function hideURLbar() {
         window.scrollTo(0, 1);
       }
-
     </script>
     <script src="{{ asset('js/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/js/jquery.min.js') }}"></script>

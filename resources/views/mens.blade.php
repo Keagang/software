@@ -53,10 +53,8 @@
               <nav class="link-effect-4" id="link-effect-4">
                 <ul class="nav navbar-nav">
                   @guest
-                  <script type="text/javascript">
-                    alert("login first");
-                    window.location='./';
-                </script>
+                 
+                 
 
                   @else
                   <li>
