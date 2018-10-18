@@ -23,7 +23,6 @@
     <script src="{{ asset('js/js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/starrr.js') }}"></script>
-    
 
     <link href="//fonts.googleapis.com/css?family=Cagliostro" rel="stylesheet" type="text/css">
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic" rel="stylesheet" type="text/css">
@@ -162,94 +161,89 @@
     </style>
 
 
+
     <br><br>
     <!--<div class='page'>-->
     <!--<div class='content'>-->
-    
-      <input type="hidden" name="pid" value=" ">
-      <input type="hidden" name="username" value="{{ isset(Auth::user()->name) ? Auth::user()->name : '' }}">
-      @foreach($product as $p)
-      <table align="center">
-        <tbody>
-          <tr>
-            <th rowspan="100">
-              <div class="box"><img src="{{ asset('images/'.$men.'/'.$p->image.'') }}" alt="11 "></div>
-              <h5 align="center">(hover over image to zoom in)</h5>
-            </th>
-          </tr>
-          <tr>
-            <td><b>Name</b></td>
-            <td>{{$p->pname}}</td>
-          </tr>
-          <tr>
-            <td><b>Price</b></td>
-            <td><b>{{$p->price}}</b></td>
-          </tr>
-          <tr>
-            <td><b>Details</b></td>
-            <td>{{$p->info}}</td>
-          </tr>
-          <tr>
-            <td>Rating</td>
-            <td>
-              <span class="glyphicon glyphicon-star-empty"></span>
-             {{--  <input type="hidden" name="rating" id="ratings">
-              <div class="stars starrr" data-rating="{{Input::old('rating',0)}}"></div>
+   
+			<input type="hidden" name="username" value="1">
+			<input type="hidden" name="email" value="frank">
+			<input type="hidden" name="pid" value="11 ">
+			<input type="hidden" name="pname" value="Levis White Shirt">
+			<input type="hidden" name="price" value="1000">
+			<input type="hidden" name="quantity" value="1">
+			<input type="hidden" name="total" value="1000">
+			<input type="hidden" name="address" value="$2y$10$DL.TGXCxya5SmrKrrau7LuTrZucZ/2W8lq4c2iXnS/CH0IU8nCPR.">
+			<table align="center">
+				<tbody><tr>
+					<th rowspan="100">
+						<div class="box"><img src="images/men/levis_white.jpg" alt="11 "></div>					</th>
+				</tr>
+				<tr>
+					<td>Name</td>
+					<td>Levis White Shirt</td>
+				</tr>
+				<tr>
+					<td>Price</td>
+					<td><b>Rs.1000</b></td>
+				</tr>
+				<tr>
+					<td>Quantity</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>Product ID</td>
+					<td>11</td>
+				</tr>
+				<tr>
+					<td>Order Status</td>
+					<td>
+						 @if(isset($OrderSuccess))
+						 <div class="alert alert-success">
+						 	<span>{{ $OrderSuccess }}</span>
+						 	@endif
+					</td>
+				</tr>
+				<tr>
+					<td>Leave a Review
+						@if(isset($review))
+						 <div class="alert alert-success">
+						 	<span>{{ $review }}</span>
+						 	@endif
+					</td>
+					<td>
+              <div class="row" id="post-review-box" {{-- style="display:none;" --}}>
+                <div class="col-md-12">
+                	@foreach($product as $p)
+                  <form id='review' action="{{ url('/review') }}" method="post">
+                  <input type="hidden" name="pid" value="{{ $p->pid }}">
+                  <input type="hidden" name="pname" value="">
+                  <input type="hidden" name="username" value="">
+                  <input type="hidden" name="email" value="">
+                  <input type="hidden" name="rating" id="ratings-hidden">
+                  <input type="textarea"  name="comment" id="new-review" class="form-control animated" placeholder="Enter your review here...">
+                  <div class="text-right">
+                    <div class="stars starrr" data-rating="{{Input::old('rating',0)}}"></div>
                     <a href="#" class="btn btn-danger btn-sm" id="close-review-box" style="display:none; margin-right:10px;"> <span class="glyphicon glyphicon-remove"></span>Cancel</a>
-                    <button class="btn btn-success btn-lg" type="submit">Save</button>
-                  </div> --}}
-            </td>
-          </tr>
-          {{-- $('.starrr').on('starrr:change', function(e, value){
-        ratingsField.val(value);
+                    <br>
+                    <input type="submit" form="review" name="Save" class="btn btn-success btn-lg">  {{-- With an existing rating
+$('.starrr').starrr({
+  rating: 4
+}) --}}
+                    </form>
+                    @endforeach
+                  </div>
+                </div>
+              </div></td>
+				</tr>
+			</tbody>
+		</table>
+		<script type="text/javascript">
+			$('.starrr').on('starrr:change', function(e, value){
+        $('#ratings-hidden').val(value);
+        // alert('entered');
       }); 
-      .stars {
-        margin: 20px 0;
-        font-size: 24px;
-        color: #d17581;
-      }
-      --}}
-          <tr>
-            <td>Quantity</td>
-            <td>
-              <form id="Quantity" action="{{ url('/order') }}" method="post">
-                {{-- {{ csrf_token() }} --}}
-              <input type="text" name="order">
-              <input type="hidden" name="pid" value="{{ $p->pid }}">
-              <input type="hidden" name="username" value="{{isset(Auth::user()->name) ? Auth::user()->name : ''}}">
-              {{-- <input type="" name=""> --}}
-              <input type="hidden" name="pname" value="{{ $p->pname }}">
-              <input type="hidden" name="price" value="{{ $p->price }}">
-              <input form='Quantity' type="submit" class="btn btn-primary" name="submit" value="Place Order">
-              </div>
-              </form>
-
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      @endforeach
-      
-      <table align="center" style="min-width: 1000;">
-        <tbody>
-          <tr>
-            <td style="text-align: center;">
-                REVIEWS
-              </td>
-            </tr>
-            @if(isset($review))
-            @foreach($review as $review)
-            <tr>
-              <td>
-            {{ $review->username }} : {{ $review->review }}
-          </td>
-        </tr>
-        @endforeach
-        @endif
-      </tbody>
-    </table>
-    
-    <br><br><br>
+		</script>
     {{-- <div class="well" id="reviews-anchor">
               <div class="row">
                 <div class="col-md-12">

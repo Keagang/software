@@ -13,8 +13,8 @@
 <meta name="keywords" content="ONLINE SHOPPING" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!--js-->
-<script src="{{ asset('js/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('js/js/jquery.min.js') }}"></script>
+<script src="{{ asset('js/js/bootstrap.min.js') }}"></script>
 <!--js-->
 <!--webfonts-->
 <link href='//fonts.googleapis.com/css?family=Cagliostro' rel='stylesheet' type='text/css'>
@@ -127,7 +127,7 @@
             </a>
 
         </div>
-        <script src="js/custom.js"></script>
+        <script src="{{ asset('js/js/custom.js') }}"></script>
     </div>
 <!--banner-->
     <!--content-->
@@ -299,7 +299,7 @@
                             <div class="clearfix"> </div>
                         </div>
                         
-                    <script type="text/javascript" src="js/smoothbox.jquery2.js"></script>
+                    <script type="text/javascript" src="{{ asset('js/js/smoothbox.jquery2.js') }}"></script>
                 </div>
             </div>
         </div>
