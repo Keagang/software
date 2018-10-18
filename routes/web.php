@@ -24,3 +24,4 @@ Route::view('old', 'old');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+// musambi2018

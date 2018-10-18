@@ -13,6 +13,7 @@ class productcontroller extends Controller
     	return view('welcome')->with('products',$product);
     }
     public function mensproduct(){
+        return 'h';
     	$mens= Product::where('category',1)->get();
     	//return "$mens";
     	return view('mens')->with('mens',$mens);
