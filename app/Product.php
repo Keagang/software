@@ -10,6 +10,7 @@ class Product extends Model
 	protected $primaryKey='pid';
 	public $timestamps=false;
 
+	protected $fillable = ['category', 'pid', 'pname', 'price', 'image', 'info'];
 
 
 	public function reviews()
