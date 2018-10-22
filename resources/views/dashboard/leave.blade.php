@@ -66,7 +66,7 @@
     <a class="nav-link" id="admin-tab" data-toggle="tab" href="#admintable" role="tab" aria-controls="admintable" aria-selected="false"><h2 class="text-center">Admin</h2></a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" id="reviewcount-tab" data-toggle="tab" href="#reviewcountable" role="tab" aria-controls="reviewcounttable" aria-selected="false"><h2 class="text-center">ReviewCount</h2></a>
+    <a class="nav-link" id="reviewcount-tab" data-toggle="tab" href="#reviewcounttable" role="tab" aria-controls="reviewcounttable" aria-selected="false"><h2 class="text-center">ReviewCount</h2></a>
   </li>
   <li class="nav-item">
     <a class="nav-link" id="blacklist-tab" data-toggle="tab" href="#blacklisttable" role="tab" aria-controls="blacklisttable" aria-selected="false"><h2 class="text-center">Blacklisted</h2></a>
@@ -392,19 +392,22 @@
           </tbody>
         </table>
   </div>
-   <div class="tab-pane fade" id="reviewtable" role="tabpanel" aria-labelledby="review-tab">
+   <div class="tab-pane fade" id="reviewcounttable" role="tabpanel" aria-labelledby="review-tab">
 <table class="datatable table table-striped table-bordered" cellspacing="0" width="100%">
   <a href="{{ action('AdminController@create', ['category' => 'reviewcount']) }}" class="btn btn-success">Create</a>
             <thead>
             <tr>
-              <th>rid</th>
-              <th>pid</th>
+              <th>id</th>
               <th>pname</th>
               <th>username</th>
-              <th>email</th>
-              <th>review</th>
               <th>ip</th>
+              <th>review</th>
               <th>stars</th>
+              <th>count</th>
+              <th>status</th>
+              <th>email</th>
+              <th>created_at</th>
+              <th>updated_at</th>
               {{-- `id`, `pname`, `username`, `ip`, `review`, `stars`, `count`, `status`, `created_at`, `updated_at` --}}
                                 <th>Edit</th>
                                  <th>Delete</th>
@@ -413,56 +416,59 @@
 
           <tfoot>
             <tr>
-              <th>rid</th>
-              <th>pid</th>
+              <th>id</th>
               <th>pname</th>
               <th>username</th>
-              <th>email</th>
-              <th>review</th>
               <th>ip</th>
+              <th>review</th>
               <th>stars</th>
+              <th>count</th>
+              <th>status</th>
+              <th>email</th>
+              <th>created_at</th>
+              <th>updated_at</th>
                              <th>Edit</th>
                                  <th>Delete</th>
             </tr>
           </tfoot>
 
           <tbody>
-            @foreach($review as $review)
+            @foreach($rc as $rc)
             <tr>
-              <td>{{ $review->rid }}</td>
-              <td>{{ $review->pid }}</td>
-              <td>{{ $review->pname }}</td>
-              <td>{{ $review->username }}</td>
-              <td>{{ $review->email }}</td>
-              <td>{{ $review->review }}</td>
-              <td>{{ $review->ip }}</td>
-              <td>{{ $review->stars }}</td>
+              <td>{{ $rc->id }}</td>
+              <td>{{ $rc->pname }}</td>
+              <td>{{ $rc->username }}</td>
+              <td>{{ $rc->ip }}</td>
+              <td>{{ $rc->review }}</td>
+              <td>{{ $rc->stars }}</td>
+              <td>{{ $rc->count }}</td>
+              <td>{{ $rc->status }}</td>
+              <td>{{ $rc->email }}</td>
+              <td>{{ $rc->created_at }}</td>
+              <td>{{ $rc->updated_at}}</td>
                             <td>
                             <form method="post" action="{{ route('edit') }}">
-                              <input type="hidden" name="category" value="reviews">
-                              <input type="hidden" name="id" value="{{ $review->rid }}">
+                              <input type="hidden" name="category" value="reviewcount">
+                              <input type="hidden" name="id" value="{{ $rc->id }}">
                               <button type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></button>
                             </form></td>
-    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-dname='review from {{ $review->pname }}' data-category='reviews' data-id="{{ $review->rid }}" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-dname='review from {{ $rc->pname }}' data-category='reviewcount' data-id="{{ $rc->id }}" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
             </tr>
             @endforeach
           </tbody>
         </table>
 
   </div>
-   <div class="tab-pane fade" id="reviewtable" role="tabpanel" aria-labelledby="review-tab">
+   <div class="tab-pane fade" id="blacklisttable" role="tabpanel" aria-labelledby="review-tab">
 <table class="datatable table table-striped table-bordered" cellspacing="0" width="100%">
-  <a href="{{ action('AdminController@create', ['category' => 'reviews']) }}" class="btn btn-success">Create</a>
+  <a href="{{ action('AdminController@create', ['category' => 'blacklist']) }}" class="btn btn-success">Create</a>
             <thead>
             <tr>
-              <th>rid</th>
-              <th>pid</th>
-              <th>pname</th>
-              <th>username</th>
-              <th>email</th>
-              <th>review</th>
-              <th>ip</th>
-              <th>stars</th>
+              <th>id</th>
+              <th>ip_addresses</th>
+              <th>countries</th>
+              <th>cities</th>
+                {{-- id  ip_addresses  countries cities --}}
                                 <th>Edit</th>
                                  <th>Delete</th>
             </tr>
@@ -470,37 +476,29 @@
 
           <tfoot>
             <tr>
-              <th>rid</th>
-              <th>pid</th>
-              <th>pname</th>
-              <th>username</th>
-              <th>email</th>
-              <th>review</th>
-              <th>ip</th>
-              <th>stars</th>
+              <th>id</th>
+              <th>ip_addresses</th>
+              <th>countries</th>
+              <th>cities</th>
                              <th>Edit</th>
                                  <th>Delete</th>
             </tr>
           </tfoot>
 
           <tbody>
-            @foreach($review as $review)
+            @foreach($blacklist as $blacklist)
             <tr>
-              <td>{{ $review->rid }}</td>
-              <td>{{ $review->pid }}</td>
-              <td>{{ $review->pname }}</td>
-              <td>{{ $review->username }}</td>
-              <td>{{ $review->email }}</td>
-              <td>{{ $review->review }}</td>
-              <td>{{ $review->ip }}</td>
-              <td>{{ $review->stars }}</td>
+              <td>{{ $blacklist->id }}</td>
+              <td>{{ $blacklist->ip_addresses }}</td>
+              <td>{{ $blacklist->countries }}</td>
+              <td>{{ $blacklist->cities }}</td>
                             <td>
                             <form method="post" action="{{ route('edit') }}">
-                              <input type="hidden" name="category" value="reviews">
-                              <input type="hidden" name="id" value="{{ $review->rid }}">
+                              <input type="hidden" name="category" value="blacklist">
+                              <input type="hidden" name="id" value="{{ $blacklist->id }}">
                               <button type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></button>
                             </form></td>
-    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-dname='review from {{ $review->pname }}' data-category='reviews' data-id="{{ $review->rid }}" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-dname='review from {{ $blacklist->id }}' data-category='blacklist' data-id="{{ $blacklist->id }}" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
             </tr>
             @endforeach
           </tbody>

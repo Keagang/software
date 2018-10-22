@@ -80,7 +80,23 @@ class productcontroller extends Controller
          $rc->fill([null]);
          return view('review')->with('banned','')->with('product',$product);
         }
-
+        date_default_timezone_set('Africa/Nairobi');
+        //if they have just recently posted a review
+        
+        $updated= strtotime(DB::table('reviewcount')->select('updated_at')->where('username',$review->username)->first()->updated_at);
+        $currentTime = time(); // current time in format 
+        $difference = (int)($currentTime - $updated);// difference in time in seco
+        // $updated = date("Y-m-d H:i:s a",time());
+        // $seconds= date('d h:i:s', (string)$difference);
+        // $difference = date('m/d/Y h:i:s a', $difference);
+        // dd($updated);
+        // var_dump($difference);
+        // var_dump(DB::table('reviewcount')->where('username',$review->username)->first());
+        // die();
+        if($difference<60){
+         DB::table('blacklist')->insert(['ip' => $ip]);
+         return view('review')->with('banned','')->with('product',$product);
+        }
         if(rc::where('username',$review->username)->where('pname',$review->pname)->exists()){
          //if they have submitted a review before
          return view('review')->with('exceeds','')->with('product',$product);

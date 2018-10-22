@@ -134,9 +134,9 @@
         <div class="content">
             <!--banner-bottom-->
             <div class="banner-bottom">
-                <div class="col-md-3 ban-grid">
-                    <div class="ban-left">
-                        <h4>24/7 Shopping Site</h4>
+                <div class="col-lg ban-grid">
+                   
+                        <h4 style="color: #5cb85c;">Quality Products for Everyone!!</h4>
 
                     </div>
                     <div class="ban-right">
@@ -144,34 +144,7 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
-                <div class="col-md-3 ban-grid">
-                    <div class="ban-left">
-                        <h4>Quality Products</h4>
 
-                    </div>
-                    <div class="ban-right">
-                        <!--<i class="glyphicon glyphicon-facetime-video"> </i>-->
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="col-md-3 ban-grid">
-                    <div class="ban-left">
-                        <h4>On-Time Delivery</h4>
-
-                    </div>
-                    <div class="ban-right">
-                        <!--<i class="glyphicon glyphicon-book"> </i>-->
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="col-md-3 ban-grid">
-                    <div class="ban-left">
-                        <h4>Consumer Friendly</h4>
-
-                    </div>
-                    <div class="ban-right">
-                    <!--<i class="glyphicon glyphicon-blackboard"> </i>-->
-                    </div>
                     <div class="clearfix"></div>
                 </div>
                 <div class="clearfix"></div>
@@ -180,7 +153,7 @@
             <!--welcome-->
             <div class="welcome-w3">
                 <div class="container">
-                    <h2 class="tittle">Welcome To Online Shopping Cart</h2>
+                    <h2 class="tittle" style="color: #999966;">Welcome To Online Shopping Cart</h2>
                 </div>
             </div>
             <!--welcome-->
@@ -208,94 +181,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 w3agile_Projects_grid">
-                                <div class="w3agile_Projects_image">
-                                    <a class="sb" href="images/g2.jpg">
-                                        <figure>
-                                            <img src="images/shop.jpg" alt="shop" class="img-responsive" />
-                                            <figcaption>
-                                                <h4>SHOP</h4>
-                                            </figcaption>
-                                        </figure>
-                                    </a>
-                                    <br>
-                                    <div class="text" align="center">
-                                        <button type="button" class="btn btn-success">SHOP</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 w3agile_Projects_grid">
-                                <div class="w3agile_Projects_image">
-                                    <a class="sb" href="images/g3.jpg">
-                                        <figure>
-                                            <img src="images/gadget.jpg" alt="gadget" class="img-responsive" />
-                                            <figcaption>
-                                                <h4>GADGETS</h4>
-                                            </figcaption>
-                                        </figure>
-                                    </a>
-                                    <br>
-                                    <div class="text" align="center">
-                                        <a href="gadgets.php?login=0">
-                                        <button type="button" class="btn btn-success">GADGETS</button>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="clearfix"> </div>
                         </div>
 
                         <div class="portfolio_grid_w3lss">
-                            <div class="col-md-4 w3agile_Projects_grid">
-                                <div class="w3agile_Projects_image">
-                                    <a class="sb" href="images/g4.jpg">
-                                        <figure>
-                                            <img src="images/women.jpg" alt="women" class="img-responsive" />
-                                            <figcaption>
-                                                <h4>WOMEN</h4>
-                                            </figcaption>
-                                        </figure>
-                                    </a>
-                                    <br>
-                                    <div class="text" align="center">
-                                        <a href="women.php?login=0">
-                                        <button type="button" class="btn btn-success">WOMEN</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 w3agile_Projects_grid">
-                                <div class="w3agile_Projects_image">
-                                    <a class="sb" href="images/g5.jpg">
-                                        <figure>
-                                            <img src="images/book.jpg" alt="books" class="img-responsive" />
-                                            <figcaption>
-                                                <h4>BOOKS</h4>
-                                            </figcaption>
-                                        </figure>
-                                    </a>
-                                    <br>
-                                    <div class="text" align="center">
-                                        <a href="books.php?login=0">
-                                        <button type="button" class="btn btn-success">BOOKS</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 w3agile_Projects_grid">
-                                <div class="w3agile_Projects_image">
-                                    <a class="sb" href="images/g6.jpg">
-                                        <figure>
-                                            <img src="images/sport.jpg" alt="sports" class="img-responsive" />
-                                            <figcaption>
-                                                <h4>SPORTS</h4>
-                                            </figcaption>
-                                        </figure>
-                                    </a>
-                                    <br>
-                                    <div class="text" align="center">
-                                        <a href="sports.php?login=0">
-                                        <button type="button" class="btn btn-success">SPORTS</button>
-                                    </div>
-                                </div>
-                            </div>
+                            
+                            
                             <div class="clearfix"> </div>
                         </div>
                         

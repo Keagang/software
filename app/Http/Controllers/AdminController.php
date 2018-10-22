@@ -55,7 +55,7 @@ class AdminController extends Controller
             return redirect()->route('show');
             break;
 
-             case 'rc':
+             case 'reviewcount':
             $rc= new rc;
             $input=$req->all();
             $rc->fill($input)->save();
@@ -66,6 +66,14 @@ class AdminController extends Controller
             // dd($req->all());
             $blacklist= new blacklist;
             $input=$req->all();
+            $input = array_map(function($input)
+            {
+               $i=ucwords(strtolower($input));
+              return $input=$i; 
+            }, $input);
+            // dd($input);
+            // dd($blacklist);
+            // dd($input);
             $blacklist->fill($input)->save();
             return redirect()->route('show');
             break;
@@ -123,7 +131,7 @@ class AdminController extends Controller
             case 'blacklist':
             $res=Schema::getColumnListing($category);
             // dd($res);
-            return view('dashboard.create')->with('num',3)->with('row',$res)->withcategory($category);
+            return view('dashboard.create')->with('num',4)->with('row',$res)->withcategory($category);
                 break;
             case 'orders':
             $res=Schema::getColumnListing($category);
@@ -166,12 +174,12 @@ class AdminController extends Controller
     		// $obj->delete();
     	}
         if($tb == 'reviewcount'){
-            $obj=rc::where('rid',$row)->delete();
+            $obj=rc::where('id',$row)->delete();
             // dd($obj);
             // $obj->delete();
         }
         if($tb == 'blacklist'){
-            $obj=blacklist::where('rid',$row)->delete();
+            $obj=blacklist::where('id',$row)->delete();
             // dd($obj);
             // $obj->delete();
         }
@@ -189,7 +197,7 @@ class AdminController extends Controller
         return back();
     }
     /**
-    *@deprecated
+    *
     */
     public function edit(Request $req){
     	$row=$req->get('id');
@@ -207,6 +215,14 @@ class AdminController extends Controller
     		$obj=Review::where('rid',$row)->get();
     		return view('dashboard.edit')->with('num',8)->with('row',$obj->toArray()[0])->withcategory('reviews');
     	}
+        if($tb == 'reviewcount'){
+            $obj=rc::where('id',$row)->get();
+            return view('dashboard.edit')->with('num',10)->with('row',$obj->toArray()[0])->withcategory('reviewcount');
+        }
+        if($tb == 'blacklist'){
+            $obj=blacklist::where('id',$row)->get();
+            return view('dashboard.edit')->with('num',3)->with('row',$obj->toArray()[0])->withcategory('blacklist');
+        }
     	if($tb == 'orders'){
     		$obj=Order::where('order_id',$row)->get();
     		return view('dashboard.edit')->with('num',10)->with('row',$obj->toArray()[0])->withcategory('orders');
@@ -242,22 +258,24 @@ class AdminController extends Controller
     	}
         if($tb == 'reviewcount'){
             $input=$req->except(['category']);
-            $obj=rc::where('rid',$req->get('rid'))->update($input);
+            $obj=rc::where('id',$req->get('id'))->update($input);
             // `rid`, `pid`, `pname`, `username`, `email`, `review`, `ip`, `stars`
             return redirect()->route('show');
         }
         if($tb == 'blacklist'){
             $input=$req->except(['category']);
-            foreach ($input as $input) {
-              $i=ucwords(strtolower($input));
-              $input=$i;
-            }
-            $obj=blacklist::where('rid',$req->get('rid'))->update($input);
+            $input = array_map(function($input)
+            {
+               $i=ucwords(strtolower($input));
+              return $input=$i; 
+            }, $input);
+            $obj=blacklist::where('id',$req->get('id'))->update($input);
             // `rid`, `pid`, `pname`, `username`, `email`, `review`, `ip`, `stars`
             return redirect()->route('show');
         }
     	if($tb == 'orders'){
             $input=$req->except(['category']);
+
     		$obj=Order::where('order_id',$req->get('order_id'))->update($input);
     		// `order_id`, `username`, `email`, `pid`, `pname`, `price`, `quantity`, `total`, `address`, `date`
     		
