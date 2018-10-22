@@ -65,6 +65,12 @@
   <li class="nav-item">
     <a class="nav-link" id="admin-tab" data-toggle="tab" href="#admintable" role="tab" aria-controls="admintable" aria-selected="false"><h2 class="text-center">Admin</h2></a>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" id="reviewcount-tab" data-toggle="tab" href="#reviewcountable" role="tab" aria-controls="reviewcounttable" aria-selected="false"><h2 class="text-center">ReviewCount</h2></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="blacklist-tab" data-toggle="tab" href="#blacklisttable" role="tab" aria-controls="blacklisttable" aria-selected="false"><h2 class="text-center">Blacklisted</h2></a>
+  </li>
 </ul>
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade" id="usertable" role="tabpanel" aria-labelledby="user-tab">
@@ -343,6 +349,7 @@
           </tbody>
         </table>
   </div>
+
   <div class="tab-pane fade" id="admintable" role="tabpanel" aria-labelledby="admin-tab">
     
 <table class="datatable table table-striped table-bordered" cellspacing="0" width="100%">
@@ -384,6 +391,121 @@
             @endforeach
           </tbody>
         </table>
+  </div>
+   <div class="tab-pane fade" id="reviewtable" role="tabpanel" aria-labelledby="review-tab">
+<table class="datatable table table-striped table-bordered" cellspacing="0" width="100%">
+  <a href="{{ action('AdminController@create', ['category' => 'reviewcount']) }}" class="btn btn-success">Create</a>
+            <thead>
+            <tr>
+              <th>rid</th>
+              <th>pid</th>
+              <th>pname</th>
+              <th>username</th>
+              <th>email</th>
+              <th>review</th>
+              <th>ip</th>
+              <th>stars</th>
+              {{-- `id`, `pname`, `username`, `ip`, `review`, `stars`, `count`, `status`, `created_at`, `updated_at` --}}
+                                <th>Edit</th>
+                                 <th>Delete</th>
+            </tr>
+          </thead>
+
+          <tfoot>
+            <tr>
+              <th>rid</th>
+              <th>pid</th>
+              <th>pname</th>
+              <th>username</th>
+              <th>email</th>
+              <th>review</th>
+              <th>ip</th>
+              <th>stars</th>
+                             <th>Edit</th>
+                                 <th>Delete</th>
+            </tr>
+          </tfoot>
+
+          <tbody>
+            @foreach($review as $review)
+            <tr>
+              <td>{{ $review->rid }}</td>
+              <td>{{ $review->pid }}</td>
+              <td>{{ $review->pname }}</td>
+              <td>{{ $review->username }}</td>
+              <td>{{ $review->email }}</td>
+              <td>{{ $review->review }}</td>
+              <td>{{ $review->ip }}</td>
+              <td>{{ $review->stars }}</td>
+                            <td>
+                            <form method="post" action="{{ route('edit') }}">
+                              <input type="hidden" name="category" value="reviews">
+                              <input type="hidden" name="id" value="{{ $review->rid }}">
+                              <button type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></button>
+                            </form></td>
+    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-dname='review from {{ $review->pname }}' data-category='reviews' data-id="{{ $review->rid }}" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+
+  </div>
+   <div class="tab-pane fade" id="reviewtable" role="tabpanel" aria-labelledby="review-tab">
+<table class="datatable table table-striped table-bordered" cellspacing="0" width="100%">
+  <a href="{{ action('AdminController@create', ['category' => 'reviews']) }}" class="btn btn-success">Create</a>
+            <thead>
+            <tr>
+              <th>rid</th>
+              <th>pid</th>
+              <th>pname</th>
+              <th>username</th>
+              <th>email</th>
+              <th>review</th>
+              <th>ip</th>
+              <th>stars</th>
+                                <th>Edit</th>
+                                 <th>Delete</th>
+            </tr>
+          </thead>
+
+          <tfoot>
+            <tr>
+              <th>rid</th>
+              <th>pid</th>
+              <th>pname</th>
+              <th>username</th>
+              <th>email</th>
+              <th>review</th>
+              <th>ip</th>
+              <th>stars</th>
+                             <th>Edit</th>
+                                 <th>Delete</th>
+            </tr>
+          </tfoot>
+
+          <tbody>
+            @foreach($review as $review)
+            <tr>
+              <td>{{ $review->rid }}</td>
+              <td>{{ $review->pid }}</td>
+              <td>{{ $review->pname }}</td>
+              <td>{{ $review->username }}</td>
+              <td>{{ $review->email }}</td>
+              <td>{{ $review->review }}</td>
+              <td>{{ $review->ip }}</td>
+              <td>{{ $review->stars }}</td>
+                            <td>
+                            <form method="post" action="{{ route('edit') }}">
+                              <input type="hidden" name="category" value="reviews">
+                              <input type="hidden" name="id" value="{{ $review->rid }}">
+                              <button type="submit" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></button>
+                            </form></td>
+    <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-dname='review from {{ $review->pname }}' data-category='reviews' data-id="{{ $review->rid }}" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+
   </div>
  </div>  
   </div>

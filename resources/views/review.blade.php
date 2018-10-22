@@ -202,6 +202,16 @@
 						 <div class="alert alert-success">
 						 	<span>{{ $OrderSuccess }}</span>
 						 	@endif
+               @if(isset($exceeds))
+                    <div class="alert alert-warning">
+                      <h5>Warning! You have submitted too many reviews</h5>
+                    </div>
+              @endif
+               @if(isset($banned))
+                    <div class="alert alert-danger">
+                      <h5>Sorry! You have been banned from reviewing</h5>
+                    </div>
+              @endif
 					</td>
 				</tr>
 				<tr>
@@ -217,16 +227,17 @@
                 	@foreach($product as $p)
                   <form id='review' action="{{ url('/review') }}" method="post">
                   <input type="hidden" name="pid" value="{{ $p->pid }}">
-                  <input type="hidden" name="pname" value="">
-                  <input type="hidden" name="username" value="">
-                  <input type="hidden" name="email" value="">
-                  <input type="hidden" name="rating" id="ratings-hidden">
-                  <input type="textarea"  name="comment" id="new-review" class="form-control animated" placeholder="Enter your review here...">
+                  <input type="hidden" name="pname" value="{{ $p->pname }}">
+                  <input type="hidden" name="username" value="{{ Auth::user()->name }}">
+                  <input type="hidden" name="email" value="{{ Auth::user()->email }}">
+                  <input type="hidden" name="stars" id="ratings-hidden">
+                  <input type="textarea"  name="review" id="new-review" class="form-control animated" placeholder="Enter your review here...">
                   <div class="text-right">
                     <div class="stars starrr" data-rating="{{Input::old('rating',0)}}"></div>
                     <a href="#" class="btn btn-danger btn-sm" id="close-review-box" style="display:none; margin-right:10px;"> <span class="glyphicon glyphicon-remove"></span>Cancel</a>
                     <br>
-                    <input type="submit" form="review" name="Save" class="btn btn-success btn-lg">  {{-- With an existing rating
+                    <input type="submit" form="review" name="Save" class="btn btn-success btn-lg
+                    {{ (isset($exceeds) ? 'disabled' : '') }}">  {{-- With an existing rating
 $('.starrr').starrr({
   rating: 4
 }) --}}

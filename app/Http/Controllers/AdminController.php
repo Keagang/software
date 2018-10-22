@@ -4,15 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Auth;
 use App\Product;
 use App\Review;
 use App\Order;
 use App\Category;
 use App\User;
 use App\Admin;
+use App\Blacklist;
+use App\Classes\geoplugin\geoPlugin;
+use App\Reviewcount as rc;
 
 class AdminController extends Controller
 {
+
     public function leave(){
     	$product= product::all();
     	$review= review::all();
@@ -20,7 +25,9 @@ class AdminController extends Controller
     	$user=User::all();
     	$order=Order::all();
     	$admin=Admin::all();
-    	return view('dashboard.leave')->with('category',$category)->with('product',$product)->with('review',$review)->with('user',$user)->with('order',$order)->with('admin',$admin);
+        $rc=rc::all();
+        $blacklist=blacklist::all();
+    	return view('dashboard.leave')->with('category',$category)->with('product',$product)->with('review',$review)->with('user',$user)->with('order',$order)->with('admin',$admin)->with('blacklist',$blacklist)->with('rc',$rc);
     }
     public function store(Request $req, $category){
          switch ($category) {
@@ -45,6 +52,21 @@ class AdminController extends Controller
             $review= new Review;
             $input=$req->all();
             $review->fill($input)->save();
+            return redirect()->route('show');
+            break;
+
+             case 'rc':
+            $rc= new rc;
+            $input=$req->all();
+            $rc->fill($input)->save();
+            return redirect()->route('show');
+            break;
+
+             case 'blacklist':
+            // dd($req->all());
+            $blacklist= new blacklist;
+            $input=$req->all();
+            $blacklist->fill($input)->save();
             return redirect()->route('show');
             break;
 
@@ -75,6 +97,7 @@ class AdminController extends Controller
                 break;
         }
     }
+
     public function create($category){
         switch ($category) {
             case 'products':
@@ -91,6 +114,16 @@ class AdminController extends Controller
             $res=Schema::getColumnListing($category);
             // dd($res);
             return view('dashboard.create')->with('num',8)->with('row',$res)->withcategory($category);
+                break;
+            case 'reviewcount':
+            $res=Schema::getColumnListing($category);
+            // dd($res);
+            return view('dashboard.create')->with('num',10)->with('row',$res)->withcategory($category);
+                break;   
+            case 'blacklist':
+            $res=Schema::getColumnListing($category);
+            // dd($res);
+            return view('dashboard.create')->with('num',3)->with('row',$res)->withcategory($category);
                 break;
             case 'orders':
             $res=Schema::getColumnListing($category);
@@ -132,6 +165,16 @@ class AdminController extends Controller
     		// dd($obj);
     		// $obj->delete();
     	}
+        if($tb == 'reviewcount'){
+            $obj=rc::where('rid',$row)->delete();
+            // dd($obj);
+            // $obj->delete();
+        }
+        if($tb == 'blacklist'){
+            $obj=blacklist::where('rid',$row)->delete();
+            // dd($obj);
+            // $obj->delete();
+        }
     	if($tb == 'orders'){
     		$obj=Order::where('order_id',$row)->delete();
     		// dd($obj);
@@ -145,6 +188,9 @@ class AdminController extends Controller
     	// return url('admin/test');
         return back();
     }
+    /**
+    *@deprecated
+    */
     public function edit(Request $req){
     	$row=$req->get('id');
     	$tb=$req->get('category');
@@ -194,6 +240,22 @@ class AdminController extends Controller
     		// `rid`, `pid`, `pname`, `username`, `email`, `review`, `ip`, `stars`
             return redirect()->route('show');
     	}
+        if($tb == 'reviewcount'){
+            $input=$req->except(['category']);
+            $obj=rc::where('rid',$req->get('rid'))->update($input);
+            // `rid`, `pid`, `pname`, `username`, `email`, `review`, `ip`, `stars`
+            return redirect()->route('show');
+        }
+        if($tb == 'blacklist'){
+            $input=$req->except(['category']);
+            foreach ($input as $input) {
+              $i=ucwords(strtolower($input));
+              $input=$i;
+            }
+            $obj=blacklist::where('rid',$req->get('rid'))->update($input);
+            // `rid`, `pid`, `pname`, `username`, `email`, `review`, `ip`, `stars`
+            return redirect()->route('show');
+        }
     	if($tb == 'orders'){
             $input=$req->except(['category']);
     		$obj=Order::where('order_id',$req->get('order_id'))->update($input);
